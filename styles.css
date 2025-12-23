@@ -1,21 +1,37 @@
 body {
   text-align: center;
   background-color: #022346;
-}
-
-#level-title {
   font-family: 'Press Start 2P', cursive;
-  font-size: 3rem;
-  margin: 5%;
   color: #FEF2BF;
 }
 
-button {
+h1 {
+  font-size: 3rem;
+  margin: 5%;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 3%;
+}
+
+.simon {
   margin: 25px;
   height: 200px;
   width: 200px;
   border: 10px solid rgb(15, 15, 15);
   border-radius: 20%;
+  cursor: pointer;
+}
+
+#start {
+  font-family: 'Press Start 2P', cursive;
+  margin: 25px;
+  font-size: 1.3rem;
+  height: 90px;
+  width: 170px;
+  border: 8px solid rgb(15, 15, 15);
+  border-radius: 15%;
 }
 
 #red {
@@ -42,4 +58,8 @@ button {
 .game-over {
   background-color: red;
   opacity: 0.8;
+}
+
+.none {
+  display: none;
 }
