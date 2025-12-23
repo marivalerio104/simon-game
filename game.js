@@ -1,9 +1,9 @@
 const colors = ["red", "blue", "green", "yellow"];
-let gamePattern = [];
 const buttons = document.getElementsByClassName("simon");
+const startButton = document.getElementById("start");
+let gamePattern = [];
 let level = 0;
 let user = 0;
-let startButton = document.getElementById("start");
 let started = false;
 
 
@@ -23,22 +23,27 @@ for (const button of buttons) {
       if (this.id === gamePattern[user]) {
         user++;
 
-        if (user == gamePattern.length) {
+        if (user >= gamePattern.length) {
           user = 0;
           setTimeout(() => {nextSequence()}, 1000);
         }
       } else {
-        level = user = 0;
-        document.getElementById("level").textContent = "Game over!";
-        startButton.classList.remove("none");
-        started = false;
-        gamePattern.length = 0;
+        gameOver();
       }
     }
   })
 }
 
+// Animation and sound when a simon button is pressed
+function pressButton(color) {
+  let button = document.getElementById(color);
+  button.classList.add("pressed");
+  setTimeout(() => {button.classList.remove("pressed")}, 300);
+  let audio = new Audio("./sounds/" + color + ".mp3");
+  audio.play()
+}
 
+// Starts the next sequence of the simon game
 async function nextSequence() {
   let randomNumber = Math.floor(Math.random() * 4);
   let randomColor = colors[randomNumber];
@@ -48,17 +53,20 @@ async function nextSequence() {
 
   for (let color of gamePattern) {
     pressButton(color);
-    await sleep(540);
+    await sleep(530);
   }
 }
 
-
-function pressButton(color) {
-  let button = document.getElementById(color);
-  button.classList.add("pressed");
-  setTimeout(() => {button.classList.remove("pressed")}, 300);
-  let audio = new Audio("./sounds/" + color + ".mp3");
+// Game over screen and resets values
+function gameOver() {
+  document.body.classList.add("game-over");
+  setTimeout(() => {document.body.classList.remove("game-over")}, 350);
+  let audio = new Audio("./sounds/wrong.mp3");
   audio.play()
+  level = user = gamePattern.length = 0;
+  document.getElementById("level").textContent = "Game over!";
+  startButton.classList.remove("none");
+  started = false;
 }
 
 
